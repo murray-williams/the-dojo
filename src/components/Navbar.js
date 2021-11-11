@@ -9,15 +9,17 @@ export default function Navbar() {
     <div className="navbar">
       <ul>
         <li className="logo">
-          <img src={Template} alt="Dojo Logo" />
-          <span>The Dojo</span>
+          <Link to="/">
+            <img src={Template} alt="Dojo Logo" />
+            <span>The Dojo</span>
+          </Link>
         </li>
 
         <li>
-          <Link t0="/login">Login</Link>
+          <Link to="/login">Login</Link>
         </li>
         <li>
-          <Link t0="/signup">Signup</Link>
+          <Link to="/signup">Signup</Link>
         </li>
         <li>
           <button className="btn">Logout</button>
