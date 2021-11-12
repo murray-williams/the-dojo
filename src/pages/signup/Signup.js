@@ -10,6 +10,10 @@ export default function Signup() {
   const [thumbnail, setThumbnail] = useState(null)
   const [thumbError, setThumbError] = useState(null)
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(email, password, displayName, thumbnail)
+  }
   const handleFileChange = (e) => {
     setThumbnail(null)
     // grab 1st file in the array of files
@@ -34,7 +38,7 @@ export default function Signup() {
   }
 
   return (
-    <form className="auth-form">
+    <form onSubmit={handleSubmit} className="auth-form">
       <h2>Sign up</h2>
       <label>
         <span>email:</span>
