@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import Avatar from './Avatar'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 // styles & images
@@ -9,17 +10,12 @@ import AddIcon from '../assets/add_icon.svg'
 export default function Sidebar() {
   const { user } = useAuthContext()
 
-  console.log(user)
   return (
     <div className="sidebar">
       <div className="sidebar-content">
         <div className="user">
-          {user && (
-            <>
-              <img src={user.photoURL} alt={user.displayName} />
-              <p>Hey {user.displayName}</p>
-            </>
-          )}
+          <Avatar src={user.photoURL} />
+          <p>Hey {user.displayName}</p>
         </div>
         <nav className="links">
           <ul>
