@@ -8,6 +8,30 @@ export default function Signup() {
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
   const [thumbnail, setThumbnail] = useState(null)
+  const [thumbError, setThumbError] = useState(null)
+
+  const handleFileChange = (e) => {
+    setThumbnail(null)
+    // grab 1st file in the array of files
+    let selected = e.target.files[0]
+
+    if (!selected) {
+      setThumbError('Choose a thumbnail image')
+      return
+    }
+    if (!selected.type.includes('image')) {
+      setThumbError('Selected file is not a valid image')
+      return
+    }
+    if (selected.size > 100000) {
+      setThumbError('Image file size must be less than 100kb')
+      return
+    }
+
+    setThumbError(null)
+    setThumbnail(selected)
+    console.log('thumbnail updated')
+  }
 
   return (
     <form className="auth-form">
@@ -41,9 +65,11 @@ export default function Signup() {
       </label>
       <label>
         <span>profile thumbnail:</span>
-        <input required type="file" />
+        <input required type="file" onChange={handleFileChange} />
+        {thumbError && <div className="error">{thumbError}</div>}
       </label>
       <button className="btn">Sign up</button>
+      <div></div>
     </form>
   )
 }
