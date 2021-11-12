@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { projectAuth } from '../firebase/config'
+import { projectAuth, projectFirestore } from '../firebase/config'
 import { useAuthContext } from './useAuthContext'
 
 export const useLogin = () => {
@@ -18,6 +18,13 @@ export const useLogin = () => {
 
       // dispatch login action
       dispatch({ type: 'LOGIN', payload: res.user })
+
+      // update online status
+      const { uid } = res.user
+      await projectFirestore
+        .collection('users')
+        .doc(uid)
+        .update({ online: true })
 
       // update state
       if (!isCancelled) {
