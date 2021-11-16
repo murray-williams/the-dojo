@@ -30,7 +30,7 @@ export default function Signup() {
       setThumbError('Selected file is not a valid image')
       return
     }
-    if (selected.size > 100000) {
+    if (selected.size > 300000) {
       setThumbError('Image file size must be less than 100kb')
       return
     }
