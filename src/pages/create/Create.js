@@ -1,5 +1,7 @@
 import Select from 'react-select'
 import { useCollection } from '../../hooks/useCollection'
+import { timestamp } from '../../firebase/config'
+import { useAuthContext } from '../../hooks/useAuthContext'
 
 // styles
 import { useState } from 'react'
@@ -23,13 +25,16 @@ export default function Create() {
 
   const { documents } = useCollection('users')
   const [users, setUsers] = useState([])
+  const { user } = useAuthContext()
 
+  // create user values for react-select
   useEffect(() => {
     if (documents) {
-      const options = documents.map((user) => {
-        return { value: user.id, label: user.displayName }
-      })
-      setUsers(options)
+      setUsers(
+        documents.map((user) => {
+          return { value: { ...user, id: user.id }, label: user.displayName }
+        })
+      )
     }
   }, [documents])
 
@@ -47,7 +52,31 @@ export default function Create() {
       return
     }
 
-    console.log(name, details, dueDate, category, assignedUsers)
+    const createdBy = {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      id: user.uid,
+    }
+
+    const assignedUsersList = assignedUsers.map((u) => {
+      return {
+        displayName: u.value.displayName,
+        photoURL: u.value.photoURL,
+        id: u.value.id,
+      }
+    })
+
+    const project = {
+      name,
+      details,
+      category: category.value,
+      dueDate: timestamp.fromDate(new Date(dueDate)),
+      comment: [],
+      createdBy,
+      assignedUsersList,
+    }
+
+    console.log(project)
   }
 
   return (
