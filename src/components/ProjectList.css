@@ -16,9 +16,12 @@
   font-size: 0.9em;
   color: var(--heading-color);
 }
-.project-list p {
+.project-list .due-date {
   color: var(--text-color);
-  font-size: 0.9em;
+  font-size: 0.7em;
+}
+.project-list .details {
+  color: var(--heading-color);
 }
 .project-list .assigned-to {
   margin-top: 20px;
