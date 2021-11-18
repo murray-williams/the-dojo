@@ -1,5 +1,6 @@
 import { useParams } from 'react-router'
 import { useDocument } from '../../hooks/useDocument'
+import ProjectDetails from './ProjectDetails'
 
 // styles
 import './Project.css'
@@ -18,7 +19,7 @@ export default function Project() {
 
   return (
     <div className="project-details">
-      <h1>{document.name}</h1>
+      <ProjectDetails project={document} />
     </div>
   )
 }
