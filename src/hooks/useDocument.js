@@ -15,9 +15,15 @@ export const useDocument = (collection, id) => {
     // and we get the updated snapshot with the changes
     const unsubscribe = ref.onSnapshot(
       (snapshot) => {
-        // use data() method to get the data inside snapshot
-        setDocument({ ...snapshot.data(), id: snapshot.id })
-        setError(null)
+        if (snapshot.data()) {
+          // use data() method to get the data inside snapshot
+          setDocument({ ...snapshot.data(), id: snapshot.id })
+          setError(null)
+        }
+        // see if doc ref exists otherwise throw error
+        else {
+          setError('could not fetch that document')
+        }
 
         // second agument that runs if there is an error
       },
